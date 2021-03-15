@@ -1,6 +1,6 @@
 
 # Image URL to use all building/pushing image targets
-IMG ?= gcr.io/flink-operator/flink-operator:latest
+IMG ?= 478685488679.dkr.ecr.us-west-2.amazonaws.com/gcr.io/flink-operator/flink-operator:$(IMG_VER)
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS ?= "crd:maxDescLen=0,trivialVersions=true"
 # The Kubernetes namespace in which the operator will be deployed.
