@@ -115,22 +115,14 @@ func TestGetDesiredClusterState(t *testing.T) {
 			Value:             "toleration-value2",
 		},
 	}
-<<<<<<< HEAD
 	var jmAffinity = *&corev1.Affinity{
-=======
-	var jobAffinity = *&corev1.Affinity{
->>>>>>> origin/feature/job-affinity
 		NodeAffinity: &v1.NodeAffinity{
 			RequiredDuringSchedulingIgnoredDuringExecution: &v1.NodeSelector{
 				NodeSelectorTerms: []v1.NodeSelectorTerm{
 					{
 						MatchExpressions: []v1.NodeSelectorRequirement{
 							{
-<<<<<<< HEAD
 								Key:      "node-allow/jobmanagers",
-=======
-								Key:      "node-allow/flink-job",
->>>>>>> origin/feature/job-affinity
 								Operator: v1.NodeSelectorOpNotIn,
 								Values:   []string{"false"},
 							},
@@ -162,7 +154,6 @@ func TestGetDesiredClusterState(t *testing.T) {
 					LabelSelector: &metav1.LabelSelector{
 						MatchExpressions: []metav1.LabelSelectorRequirement{
 							{
-<<<<<<< HEAD
 								Key:      "component",
 								Operator: metav1.LabelSelectorOpIn,
 								Values:   []string{"jobmanager"},
@@ -217,11 +208,6 @@ func TestGetDesiredClusterState(t *testing.T) {
 								Key:      "component",
 								Operator: metav1.LabelSelectorOpIn,
 								Values:   []string{"taskmanager"},
-=======
-								Key:      "app",
-								Operator: metav1.LabelSelectorOpIn,
-								Values:   []string{"flink"},
->>>>>>> origin/feature/job-affinity
 							},
 						},
 					},
