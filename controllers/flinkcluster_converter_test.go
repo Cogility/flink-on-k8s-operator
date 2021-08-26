@@ -217,6 +217,57 @@ func TestGetDesiredClusterState(t *testing.T) {
 			},
 		},
 	}
+	var jobAffinity = *&corev1.Affinity{
+		NodeAffinity: &v1.NodeAffinity{
+			RequiredDuringSchedulingIgnoredDuringExecution: &v1.NodeSelector{
+				NodeSelectorTerms: []v1.NodeSelectorTerm{
+					{
+						MatchExpressions: []v1.NodeSelectorRequirement{
+							{
+								Key:      "node-allow/flink-job",
+								Operator: v1.NodeSelectorOpNotIn,
+								Values:   []string{"false"},
+							},
+						},
+					},
+				},
+			},
+		},
+		PodAffinity: &v1.PodAffinity{
+			RequiredDuringSchedulingIgnoredDuringExecution: []v1.PodAffinityTerm{
+				{
+					LabelSelector: &metav1.LabelSelector{
+						MatchExpressions: []metav1.LabelSelectorRequirement{
+							{
+								Key:      "app",
+								Operator: metav1.LabelSelectorOpIn,
+								Values:   []string{"kafka-click-generator"},
+							},
+						},
+					},
+					Namespaces:  []string{"default"},
+					TopologyKey: "kubernetes.io/hostname",
+				},
+			},
+		},
+		PodAntiAffinity: &v1.PodAntiAffinity{
+			RequiredDuringSchedulingIgnoredDuringExecution: []v1.PodAffinityTerm{
+				{
+					LabelSelector: &metav1.LabelSelector{
+						MatchExpressions: []metav1.LabelSelectorRequirement{
+							{
+								Key:      "app",
+								Operator: metav1.LabelSelectorOpIn,
+								Values:   []string{"flink"},
+							},
+						},
+					},
+					Namespaces:  []string{"default"},
+					TopologyKey: "kubernetes.io/hostname",
+				},
+			},
+		},
+	}
 	var userAndGroupId int64 = 9999
 	var securityContext = corev1.PodSecurityContext{
 		RunAsUser:  &userAndGroupId,
